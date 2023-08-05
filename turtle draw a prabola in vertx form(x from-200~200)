@@ -1,0 +1,61 @@
+import turtle
+from turtle import *
+hideturtle()
+turtle.speed(0)
+
+#y = a(x-h)²+ k
+# entering the variables
+a_value = float(input('type the a value:'))
+h_value = float(input('type h value(horizontal shift): '))
+k_value = float(input('type k value(vertical shift): '))
+abs_range = 200
+x = -abs_range
+
+turtle.penup()
+turtle.goto(-abs_range-200, 0)
+turtle.pendown()
+
+# for setting x/y-axis
+for i in range(-abs_range-200, abs_range+200, 10):
+    turtle.goto(i, 0)
+    if i == 0:
+        turtle.goto(i, 15)
+        turtle.goto(i, -15)
+    else:
+        turtle.goto(i, 5)
+        turtle.goto(i, -5)
+    turtle.goto(i, 0)
+
+turtle.penup()
+turtle.goto(0, -abs_range-200)
+turtle.pendown()
+for i in range(-abs_range-200, abs_range+200, 10):
+    turtle.goto(0, i)
+    if i == 0:
+        turtle.goto(15, i)
+        turtle.goto(-15, i)
+    else:
+        turtle.goto(5, i)
+        turtle.goto(-5, i)
+    turtle.goto(0, i)
+
+
+
+judge = True
+
+
+
+# drawing the parabola
+while x <= abs_range:
+    if judge:
+        turtle.penup()
+        y = a_value*(x-h_value)**2 + k_value
+        turtle.goto(x, y)
+        x += 2
+        turtle.pendown()
+        judge = False
+    else:
+        y = a_value*(x-h_value)**2 + k_value
+        turtle.goto(x, y)
+        x += 2
+turtle.exitonclick()
