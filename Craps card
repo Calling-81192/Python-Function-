@@ -1,0 +1,52 @@
+def Craps():
+    import random
+    output = []
+    counter = 1
+    the_point = random.randint(1, 6) + random.randint(1, 6)
+
+    # pending whether the player or the casino has won
+    if the_point == 11 or the_point == 7:
+        output += ["{0} round, the point is {1}, Player has won".format(counter, the_point)]
+        return False, output
+    elif the_point == 2 or the_point == 3 or the_point == 12:
+        output += ["{0} round, the point is {1}, Casino has won".format(counter, the_point)]
+        return True, output
+    else:
+        output += ["{0} round, the point is {1}".format(counter, the_point)]
+        x = the_point
+
+        # continue the play until player/casino won this round
+        while True:
+            counter += 1
+            the_point = random.randint(1, 6) + random.randint(1, 6)
+            if the_point == x:
+                output += ["{0} round, the point is {1}, Player has won".format(counter, the_point)]
+                return False, output
+            elif the_point == 7:
+                output += ["{0} round, the point is {1}, Casino has won".format(counter, the_point)]
+                return True, output
+            x = the_point
+            output += ["{0} round, the point is {1}".format(counter, the_point)]
+
+
+current_money = 1000
+print("!!!!!CRAPS!!!!!")
+print("current money: {0}".format(current_money))
+# (:=) means assign number inputed to betnum
+while current_money > 0 and (bet_num := input("put a number between 1 and {0}(enter to end the game):".format(current_money))):
+
+    bet_num = int(bet_num)
+    judge = Craps()
+    # pending wether player lose or win money
+    if 0 < bet_num <= current_money:
+        if judge[0]:
+            print(judge[1])
+            current_money -= bet_num
+        else:
+            print(judge[1])
+            current_money += bet_num
+    else:
+        print("value: {0} exceeded, please enter again".format(bet_num))
+    print("current money: {0}".format(current_money))
+# if the money = 0 the loop will finish, automatically go to the end
+print("Game over, you have {0} now".format(current_money))
